@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "template-database.dbo.friendship" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="friendship">
+          <Key>
+            <PropertyRef Name="login_sender" />
+            <PropertyRef Name="login_recirver" />
+          </Key>
+          <Property Name="login_sender" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="login_recirver" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="midname" Type="nvarchar" MaxLength="300" />
+          <Property Name="bithday" Type="datetime" />
+          <Property Name="code_role" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_confidential_data">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="passport_series" Type="int" Nullable="false" />
+          <Property Name="passport_id" Type="int" Nullable="false" />
+          <Property Name="insurance_policy_number" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="insurance_policy_type" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="insurance_company_code" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_contact">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="phone" Type="nchar" MaxLength="30" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="code_role" />
+          </Key>
+          <Property Name="code_role" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_friendship_contact_user_recirver">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="friendship" Type="Self.friendship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="friendship">
+              <PropertyRef Name="login_recirver" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_friendship_contact_user_sender">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="friendship" Type="Self.friendship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="friendship">
+              <PropertyRef Name="login_sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_contact_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_contact" Type="Self.user_contact" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_contact">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_login">
+          <End Role="login" Type="Self.login" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="login">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="code_role" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="code_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище modelContainer">
+          <EntitySet Name="login" EntityType="Self.login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_confidential_data" EntityType="Self.user_confidential_data" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_contact" EntityType="Self.user_contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="friendship" EntityType="Self.friendship" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [friendship].[login_sender] AS [login_sender], 
+    [friendship].[login_recirver] AS [login_recirver]
+    FROM [dbo].[friendship] AS [friendship]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_friendship_contact_user_recirver" Association="Self.FK_friendship_contact_user_recirver">
+            <End Role="user" EntitySet="user" />
+            <End Role="friendship" EntitySet="friendship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_friendship_contact_user_sender" Association="Self.FK_friendship_contact_user_sender">
+            <End Role="user" EntitySet="user" />
+            <End Role="friendship" EntitySet="friendship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_user" Association="Self.FK_user_confidential_data_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_contact_user" Association="Self.FK_user_contact_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_contact" EntitySet="user_contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_login" Association="Self.FK_user_login">
+            <End Role="login" EntitySet="login" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_user_role" Association="Self.FK_user_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="login">
+          <Key>
+            <PropertyRef Name="login1" />
+          </Key>
+          <Property Name="login1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_login" FromRole="login" ToRole="user" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="midname" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="bithday" Type="DateTime" Precision="3" />
+          <Property Name="code_role" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="login1" Relationship="Self.FK_user_login" FromRole="user" ToRole="login" />
+          <NavigationProperty Name="user_confidential_data" Relationship="Self.FK_user_confidential_data_user" FromRole="user" ToRole="user_confidential_data" />
+          <NavigationProperty Name="user_contact" Relationship="Self.FK_user_contact_user" FromRole="user" ToRole="user_contact" />
+          <NavigationProperty Name="user_role" Relationship="Self.FK_user_user_role" FromRole="user" ToRole="user_role" />
+          <NavigationProperty Name="user1" Relationship="Self.friendship" FromRole="user" ToRole="user1" />
+          <NavigationProperty Name="user2" Relationship="Self.friendship" FromRole="user1" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_confidential_data">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="passport_series" Type="Int32" Nullable="false" />
+          <Property Name="passport_id" Type="Int32" Nullable="false" />
+          <Property Name="insurance_policy_number" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="insurance_policy_type" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="insurance_company_code" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_confidential_data_user" FromRole="user_confidential_data" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_contact">
+          <Key>
+            <PropertyRef Name="login" />
+          </Key>
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_contact_user" FromRole="user_contact" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user_role">
+          <Key>
+            <PropertyRef Name="code_role" />
+          </Key>
+          <Property Name="code_role" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_user_role" FromRole="user_role" ToRole="user" />
+        </EntityType>
+        <Association Name="FK_user_login">
+          <End Role="login" Type="Self.login" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="login">
+              <PropertyRef Name="login1" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_confidential_data_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_confidential_data" Type="Self.user_confidential_data" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_confidential_data">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_contact_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="user_contact" Type="Self.user_contact" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="login" />
+            </Principal>
+            <Dependent Role="user_contact">
+              <PropertyRef Name="login" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_user_role">
+          <End Role="user_role" Type="Self.user_role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_role">
+              <PropertyRef Name="code_role" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="code_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="friendship">
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <End Role="user1" Type="Self.user" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="login" EntityType="Self.login" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <EntitySet Name="user_confidential_data" EntityType="Self.user_confidential_data" />
+          <EntitySet Name="user_contact" EntityType="Self.user_contact" />
+          <EntitySet Name="user_role" EntityType="Self.user_role" />
+          <AssociationSet Name="FK_user_login" Association="Self.FK_user_login">
+            <End Role="login" EntitySet="login" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_confidential_data_user" Association="Self.FK_user_confidential_data_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_confidential_data" EntitySet="user_confidential_data" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_contact_user" Association="Self.FK_user_contact_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="user_contact" EntitySet="user_contact" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_user_role" Association="Self.FK_user_user_role">
+            <End Role="user_role" EntitySet="user_role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="friendship" Association="Self.friendship">
+            <End Role="user" EntitySet="user" />
+            <End Role="user1" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище modelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="login">
+            <EntityTypeMapping TypeName="model.login">
+              <MappingFragment StoreEntitySet="login">
+                <ScalarProperty Name="login1" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="model.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="midname" ColumnName="midname" />
+                <ScalarProperty Name="bithday" ColumnName="bithday" />
+                <ScalarProperty Name="code_role" ColumnName="code_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_confidential_data">
+            <EntityTypeMapping TypeName="model.user_confidential_data">
+              <MappingFragment StoreEntitySet="user_confidential_data">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="passport_series" ColumnName="passport_series" />
+                <ScalarProperty Name="passport_id" ColumnName="passport_id" />
+                <ScalarProperty Name="insurance_policy_number" ColumnName="insurance_policy_number" />
+                <ScalarProperty Name="insurance_policy_type" ColumnName="insurance_policy_type" />
+                <ScalarProperty Name="insurance_company_code" ColumnName="insurance_company_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_contact">
+            <EntityTypeMapping TypeName="model.user_contact">
+              <MappingFragment StoreEntitySet="user_contact">
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_role">
+            <EntityTypeMapping TypeName="model.user_role">
+              <MappingFragment StoreEntitySet="user_role">
+                <ScalarProperty Name="code_role" ColumnName="code_role" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="friendship" TypeName="model.friendship" StoreEntitySet="friendship">
+            <EndProperty Name="user">
+              <ScalarProperty Name="login" ColumnName="login_recirver" />
+            </EndProperty>
+            <EndProperty Name="user1">
+              <ScalarProperty Name="login" ColumnName="login_sender" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
