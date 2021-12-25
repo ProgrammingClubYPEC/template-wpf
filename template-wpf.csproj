@@ -68,6 +68,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="common\ConvertUserName.cs" />
+    <Compile Include="db\Instance.cs" />
+    <Compile Include="pages\ModeratorPage.xaml.cs">
+      <DependentUpon>ModeratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="signin.xaml.cs">
+      <DependentUpon>signin.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -76,20 +87,55 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="db\login.cs">
+      <DependentUpon>template-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\sysdiagrams.cs">
+      <DependentUpon>template-model.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\template-model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>template-model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\template-model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>template-model.tt</DependentUpon>
     </Compile>
     <Compile Include="db\template-model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>template-model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="db\user.cs">
+      <DependentUpon>template-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\user_confidential_data.cs">
+      <DependentUpon>template-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\user_contact.cs">
+      <DependentUpon>template-model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="db\user_role.cs">
+      <DependentUpon>template-model.tt</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="pages\ModeratorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\UserPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="signin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -137,10 +183,7 @@
   <ItemGroup>
     <None Include="Resources\pic\user.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="common\" />
-    <Folder Include="pages\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="network_icon.ico" />
   </ItemGroup>
@@ -148,6 +191,12 @@
     <Content Include="db\template-model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>template-model.Context.cs</LastGenOutput>
+      <DependentUpon>template-model.edmx</DependentUpon>
+    </Content>
+    <Content Include="db\template-model.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>template-model.edmx</DependentUpon>
+      <LastGenOutput>template-model.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
