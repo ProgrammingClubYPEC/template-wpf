@@ -25,6 +25,7 @@ namespace template_wpf.db
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<friendship> friendship { get; set; }
         public virtual DbSet<login> login { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<user> user { get; set; }

@@ -17,8 +17,8 @@ namespace template_wpf.db
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public user()
         {
-            this.user1 = new HashSet<user>();
-            this.user2 = new HashSet<user>();
+            this.friendship = new HashSet<friendship>();
+            this.friendship1 = new HashSet<friendship>();
         }
     
         public string login { get; set; }
@@ -28,13 +28,13 @@ namespace template_wpf.db
         public Nullable<System.DateTime> bithday { get; set; }
         public long code_role { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<friendship> friendship { get; set; }
         public virtual login login1 { get; set; }
         public virtual user_confidential_data user_confidential_data { get; set; }
         public virtual user_contact user_contact { get; set; }
         public virtual user_role user_role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user> user1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<user> user2 { get; set; }
+        public virtual ICollection<friendship> friendship1 { get; set; }
     }
 }

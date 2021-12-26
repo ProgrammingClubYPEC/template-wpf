@@ -3,12 +3,121 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:template_wpf.pages"
+      xmlns:local="clr-namespace:template_wpf.pages" 
+      xmlns:common="clr-namespace:template_wpf.common"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserPage">
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <common:ConvertUserName x:Key="ConvertUserName"/>
+            <common:ConvertUserRole x:Key="ConvertUserRole"/>
+            <common:ConvertImage x:Key="ConvertImage"/>
+            <common:ConvertUserData x:Key="ConvertUserData"/>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="0.8*"/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="searchTB"
+                 Grid.Column="1" Grid.RowSpan="2"
+                 VerticalAlignment="Center"
+                 Margin="20, 0"
+                 TextChanged="searchTB_TextChanged"
+                 />
+        <ComboBox x:Name="FilterCB"
+                  Grid.RowSpan="2"
+                  VerticalAlignment="Center"
+                  Margin="10, 0"
+                  SelectionChanged="FilterCB_SelectionChanged"
+                  >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource ConvertUserRole}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <CheckBox x:Name="NameUpCheckB"
+                  Grid.Column="2"
+                  Content="Имена по возрастанию"
+                  Checked="NameUpCheckB_Checked"
+                  />
         
+        <CheckBox x:Name="NameDownCheckB"
+                  Grid.Column="2" Grid.Row="1"
+                  Content="Имена по убыванию"
+                  Checked="NameUpCheckB_Checked"
+                  />
+        
+        <ListBox x:Name="userTabel"  
+                 Grid.Column="1" Grid.ColumnSpan="3"
+                 Grid.Row="3" 
+                 >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="5" MaxHeight="100" MaxWidth="400">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.1*" />
+                            <ColumnDefinition Width="0.2*" />
+                            <ColumnDefinition Width="0.1*" />
+                            <ColumnDefinition Width="0.1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Image x:Name="LogoUser"
+                               Grid.Column="0" Grid.RowSpan="2"
+                               Source="{Binding Path=user1, Converter={StaticResource ConvertImage}}"
+                               />
+
+                        <TextBlock Grid.Column="1" Grid.Row="0"
+                                   Text="{Binding Path=user1, Converter={StaticResource ConvertUserName}}"
+                                   />
+
+                        <TextBlock Grid.Column="1" Grid.Row="1"
+                                   Text="{Binding Path=user1, Converter={StaticResource ConvertUserData}}"
+                                   />
+
+                        <TextBlock Grid.Column="2" Grid.Row="0"
+                                   Text="{Binding user1.user_contact.email}"
+                                   />
+
+                        <TextBlock Grid.Column="2" Grid.Row="1"
+                                   Text="{Binding user1.user_contact.phone}"
+                                   />
+
+                        <Button x:Name="BtnRemove"
+                                Tag="{Binding user1.login}"
+                                Content="Удалить из друзей"
+                                Grid.Column="3" Grid.RowSpan="2"
+                                Click="BtnRemove_Click"
+                                />
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Column="0" 
+                    Grid.Row="3" Grid.RowSpan="2"
+                    >
+            <Button x:Name="AddFriendShip"
+                Content="Добавить друга"
+                Margin="5" MinHeight="50"
+                Click="AddFriendShip_Click"
+                />
+        </StackPanel>
     </Grid>
 </Page>

@@ -4,18 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5e969830b12c428cb2dd0e984729ac4b" Name="Diagram1">
-        <EntityTypeShape EntityType="model.login" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="model.sysdiagrams" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="model.user" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="model.user_confidential_data" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="model.user_contact" Width="1.5" PointX="5.25" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="model.user_role" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="814989d44e524a2595b15e2ded8370d7" Name="Diagram1">
+        <EntityTypeShape EntityType="model.friendship" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="model.login" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="model.sysdiagrams" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="model.user" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="model.user_confidential_data" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="model.user_contact" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="model.user_role" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="model.FK_friendship_contact_user_sender" ManuallyRouted="false" />
         <AssociationConnector Association="model.FK_user_login" ManuallyRouted="false" />
         <AssociationConnector Association="model.FK_user_confidential_data_user" ManuallyRouted="false" />
         <AssociationConnector Association="model.FK_user_contact_user" ManuallyRouted="false" />
         <AssociationConnector Association="model.FK_user_user_role" ManuallyRouted="false" />
-        <AssociationConnector Association="model.friendship" ManuallyRouted="false" />
+        <AssociationConnector Association="model.FK_friendship_user_recirver" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

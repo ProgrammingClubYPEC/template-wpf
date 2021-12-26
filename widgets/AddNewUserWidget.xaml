@@ -1,0 +1,161 @@
+﻿<Page x:Class="template_wpf.widgets.AddNewUserWidget"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:template_wpf.widgets" 
+      xmlns:common="clr-namespace:template_wpf.common"
+      mc:Ignorable="d" 
+      Title="AddNewUserWidget"
+      Height="600" Width="300"
+      MinHeight="600" MinWidth="300"
+      >
+    <Page.Resources>
+        <ResourceDictionary>
+            <common:ConvertUserRole x:Key="ConvertUserRole"/>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.15*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter login"/>
+            <TextBox x:Name="login"
+                     Text="{Binding login}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter password"/>
+            <TextBox x:Name="password"
+                     Text="{Binding login1.password}"
+                     />
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="2"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter user name"/>
+            <TextBox x:Name="username"
+                     Text="{Binding name}"
+                     />
+        </StackPanel>
+
+
+        <StackPanel Grid.Row="3"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter user surname"/>
+            <TextBox x:Name="usersurname" 
+                     Text="{Binding surname}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Chose user role"/>
+            <ComboBox x:Name="userRoleCB">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Converter={StaticResource ConvertUserRole}}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+                
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter phone"/>
+            <TextBox x:Name="phone"
+                     Text="{Binding user_contact.phone}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="6"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter email"/>
+            <TextBox x:Name="email"
+                     Text="{Binding user_contact.email}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="7"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter passport series"/>
+            <TextBox x:Name="passport_series"
+                     Text="{Binding user_confidential_data.passport_series}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="8"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter passport number"/>
+            <TextBox x:Name="passport_number"
+                     Text="{Binding user_confidential_data.passport_id}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="9"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter policy number"/>
+            <TextBox x:Name="policy_number"
+                     Text="{Binding user_confidential_data.insurance_policy_number}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="10"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter policy type"/>
+            <TextBox x:Name="policy_type"
+                     Text="{Binding user_confidential_data.insurance_policy_type}"
+                     />
+        </StackPanel>
+
+        <StackPanel Grid.Row="11"
+                    VerticalAlignment="Center"
+                    >
+            <TextBlock Text="Enter insurance company code"/>
+            <TextBox x:Name="policy_code_company"
+                     Text="{Binding user_confidential_data.insurance_company_code}"
+                     />
+        </StackPanel>
+
+        <Button x:Name="addBtn"
+                Content="Добавить"
+                Grid.Row="12"
+                Margin="5, 10"
+                Click="addBtn_Click"
+                />
+
+    </Grid>
+</Page>

@@ -68,25 +68,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="common\CommonWindow.xaml.cs">
+      <DependentUpon>CommonWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="common\ConvertImage.cs" />
+    <Compile Include="common\ConvertUserData.cs" />
     <Compile Include="common\ConvertUserName.cs" />
+    <Compile Include="common\ConvertUserRole.cs" />
+    <Compile Include="db\friendship.cs">
+      <DependentUpon>template-model.tt</DependentUpon>
+    </Compile>
     <Compile Include="db\Instance.cs" />
-    <Compile Include="pages\ModeratorPage.xaml.cs">
-      <DependentUpon>ModeratorPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="pages\UserPage.xaml.cs">
-      <DependentUpon>UserPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="signin.xaml.cs">
-      <DependentUpon>signin.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="db\login.cs">
       <DependentUpon>template-model.tt</DependentUpon>
     </Compile>
@@ -120,6 +112,36 @@
     <Compile Include="db\user_role.cs">
       <DependentUpon>template-model.tt</DependentUpon>
     </Compile>
+    <Compile Include="pages\ModeratorPage.xaml.cs">
+      <DependentUpon>ModeratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="pages\UserPage.xaml.cs">
+      <DependentUpon>UserPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="signin.xaml.cs">
+      <DependentUpon>signin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="widgets\AddNewFriendWidget.xaml.cs">
+      <DependentUpon>AddNewFriendWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="widgets\AddNewUserWidget.xaml.cs">
+      <DependentUpon>AddNewUserWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="widgets\UserCardWidget.xaml.cs">
+      <DependentUpon>UserCardWidget.xaml</DependentUpon>
+    </Compile>
+    <Page Include="common\CommonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -133,6 +155,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="signin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="widgets\AddNewFriendWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="widgets\AddNewUserWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="widgets\UserCardWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,24 +217,23 @@
   <ItemGroup>
     <None Include="Resources\pic\user.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="network_icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="db\template-model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>template-model.Context.cs</LastGenOutput>
       <DependentUpon>template-model.edmx</DependentUpon>
+      <LastGenOutput>template-model.Context.cs</LastGenOutput>
     </Content>
     <Content Include="db\template-model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>template-model.edmx</DependentUpon>
       <LastGenOutput>template-model.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
